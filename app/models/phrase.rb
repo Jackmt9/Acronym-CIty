@@ -1,3 +1,3 @@
 class Phrase < ApplicationRecord
-    belongs_to :Medium
+    belongs_to :medium
 end

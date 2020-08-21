@@ -1,4 +1,4 @@
 class Medium < ApplicationRecord
-    belongs_to :Category
+    belongs_to :category
     has_many :phrases
 end

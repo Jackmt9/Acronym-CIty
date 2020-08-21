@@ -20,15 +20,14 @@ ActiveRecord::Schema.define(version: 2020_08_21_064730) do
 
   create_table "media", force: :cascade do |t|
     t.string "name"
-    t.string "type"
     t.string "author"
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "phrase", force: :cascade do |t|
-    t.string "phrase"
+  create_table "phrases", force: :cascade do |t|
+    t.text "text"
     t.integer "medium_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
