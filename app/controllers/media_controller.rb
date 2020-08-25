@@ -1,5 +1,6 @@
 class MediaController < ApplicationController
     def query
-        render json: {result: "hit"}
+        search = params[:query]
+        render json: {result: search}
     end
 end

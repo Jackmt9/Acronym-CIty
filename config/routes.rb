@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   # resources :categories
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  get '/media/query/:query', to: 'media#query'
+  get '/search/:query', to: 'media#query'
 end
