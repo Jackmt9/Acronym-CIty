@@ -4,6 +4,7 @@ class CreateMedia < ActiveRecord::Migration[6.0]
       t.string :name
       # t.string :type
       t.string :author
+      t.string :url
       t.integer :category_id
 
       t.timestamps
