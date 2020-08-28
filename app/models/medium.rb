@@ -8,7 +8,10 @@ class Medium < ApplicationRecord
             request = RestClient.get(medium.url,{})
          html = Nokogiri::HTML(request)
              verse = html.at('.lyrics')
-                print verse 
+             lyrics = verse.children
+             lyrics
+            #  verseArray = verse.split('pending-editorial-actions-count')
+                print lyrics.text
             end
         end
     end
