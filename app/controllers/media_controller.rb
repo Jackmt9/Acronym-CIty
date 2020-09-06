@@ -1,6 +1,12 @@
 class MediaController < ApplicationController
     def query
         search = params[:query]
-        render json: {result: search}
+        initials = self.getInitials(search)
+        render json: {result: initials}
     end
+
+    def getInitials(search)
+        search.split(' ').map{|w| w[0].upcase}
+    end
+
 end
