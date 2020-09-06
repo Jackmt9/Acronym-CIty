@@ -3,7 +3,7 @@ class Medium < ApplicationRecord
     require 'rest-client'
     belongs_to :category
     def self.get_songs
-        Medium.all.each do |medium|
+        Medium.all[0..10].each do |medium|
             print medium.id 
             if medium.url.include?('genius.com') && (medium.id != 38) && (medium.id != 49) && (medium.id != 72) && (medium.id != 167) && (medium.id != 196) && (medium.id != 219) && (medium.id != 225) && (medium.id != 226) && (medium.id != 227) && (medium.id != 247) && (medium.id != 255) && (medium.id != 263) && (medium.id != 273) && (medium.id != 317)
             request = RestClient.get(medium.url,{})
@@ -12,7 +12,7 @@ class Medium < ApplicationRecord
              lyrics = verse.children
              lyrics
             #  verseArray = verse.split('pending-editorial-actions-count')
-                print lyrics.text
+                return lyrics.text
         end
         end
     end
