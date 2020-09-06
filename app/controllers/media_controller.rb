@@ -12,7 +12,7 @@ class MediaController < ApplicationController
 
     def getPhrase(initials)
         # insert search logic here
-        intials
+        initials
     end
 
 end
