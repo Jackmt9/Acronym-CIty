@@ -8,8 +8,8 @@ class Medium < ApplicationRecord
         end
 
         def self.get_songs(initials)
+            phrase_return = ''
             Medium.all[0..5].each do |medium|
-                phrase_return = ''
                 # while(phrase_return === '')
                     if medium.url.include?('genius.com') && (medium.id != 38) && (medium.id != 49) && (medium.id != 72) && (medium.id != 167) && (medium.id != 196) && (medium.id != 219) && (medium.id != 225) && (medium.id != 226) && (medium.id != 227) && (medium.id != 247) && (medium.id != 255) && (medium.id != 263) && (medium.id != 273) && (medium.id != 317)
                         song_array = []
