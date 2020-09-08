@@ -2,7 +2,7 @@ class MediaController < ApplicationController
     def query
         search = params[:query]
         initials = self.get_initials(search)
-        phrase = get_phrase(initials)
+        phrase = self.get_phrase(initials)
         render json: {result: phrase}
         # byebug
     end
@@ -30,7 +30,6 @@ class MediaController < ApplicationController
             #         hit_close = true
             #     end
             # end
-            end
         # songs_without_nonsense.each do |word|
         #     if word[0] == word[0].upcase
         #         new_line = true
