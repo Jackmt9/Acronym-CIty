@@ -89,6 +89,7 @@ class Medium < ApplicationRecord
                 # end
             end
             print phrase_return 
+            byebug
         end
         
 
