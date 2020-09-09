@@ -9,10 +9,12 @@ class Medium < ApplicationRecord
         while i < initials.length do
             # print line[i][0]
             # print initials[i]
+
            word = line[i].capitalize 
                 if word[0] == initials[i]
                     matched.push(line[i])
                     if matched.length == initials.length
+                        
                         break 
                     end
                 else 
@@ -40,16 +42,19 @@ class Medium < ApplicationRecord
             line.length >= ideal_length
         end
         
+        money_line = ''
         lines_at_work = lines_at_work.sort { |a,b| a.length <=> b.length }
         phrase_return = []
        lines_at_work.each do |line|
         phrase = self.match_initials(line, initials)
         if !!phrase
             print "hit" 
-            phrase_return.push(phrase)
+            phrase_return.push(phrase, line)
+
         end
        end
-       return phrase_return
+       return phrase_return.join('') 
+    #    + "(#{money_line})"
     end
 
     def self.trim_array(array)
@@ -64,8 +69,8 @@ class Medium < ApplicationRecord
     end
         def self.get_songs(initials)
             phrase_return = ''
-            Medium.all[0..5].each do |medium|
-                # while(phrase_return === '')
+            # while phrase_return === ''
+            Medium.all.each do |medium|
                 if medium.url.include?('genius.com') && (medium.id != 38) && (medium.id != 49) && (medium.id != 72) && (medium.id != 167) && (medium.id != 196) && (medium.id != 219) && (medium.id != 225) && (medium.id != 226) && (medium.id != 227) && (medium.id != 247) && (medium.id != 255) && (medium.id != 263) && (medium.id != 273) && (medium.id != 317)
                     song_array = []
                     request = RestClient.get(medium.url,{})
@@ -77,8 +82,9 @@ class Medium < ApplicationRecord
                         end
                     song_array = self.trim_array(song_array)
                     phrase_return = self.query_lyrics(song_array, initials)
-                    print "Phrase: "
-                    print phrase_return
+                end
+                if phrase_return.length > 0
+                    return phrase_return + medium.name
                 end
                 # end
             end
