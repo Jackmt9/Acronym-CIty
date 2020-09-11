@@ -29,29 +29,25 @@ class Medium < ApplicationRecord
     end
   end
 
-  def self.query_lyrics(lyrics, initials)
-    lyrics_array = lyrics.text.split(' ')
+  def self.query_lyrics(lyrics_array, initials)
     i = 0
     j = 0
-    phrase_return = ''
-
+    money_index = 0
     while i < initials.length && j < lyrics_array.length
       if lyrics_array[j][0].downcase == initials[i].downcase
-        phrase_return += lyrics_array[j] + ' '
         i += 1
         j += 1
       else
         i = 0
-        phrase_return = ''
         j += 1
       end
     end
-
-    return phrase_return
+    money_index = j - initials.length
+    range = { indexAt: money_index, length: initials.length }
+    return range
   end
 
   def self.get_songs(initials)
-    phrase_return = ''
     Medium.all.each do |medium|
       if medium.url.include?('genius.com') && (medium.id != 38) &&
            (medium.id != 49) && (medium.id != 72) && (medium.id != 167) &&
@@ -63,15 +59,13 @@ class Medium < ApplicationRecord
         request = RestClient.get(medium.url, {})
         html = Nokogiri.HTML(request)
         verse = html.at('.lyrics')
-        lyrics = verse.children
-        phrase_return = self.query_lyrics(lyrics, initials)
-
-        return phrase_return
-
-        return phrase_return if phrase_return.length > 0
+        lyrics = verse.children.text.split(' ')
+        range = self.query_lyrics(lyrics, initials)
+        # must insert error handling if no match found
+        range[:lyrics] = lyrics
+        return range
       end
-      #   phrase_return + medium.name if phrase_return.length > 0
     end
-    print phrase_return
+    # print phrase_return
   end
 end
