@@ -43,7 +43,7 @@ class Medium < ApplicationRecord
       end
     end
     money_index = j - initials.length
-    range = { indexAt: money_index, length: initials.length }
+    range = { index_at: money_index, length: initials.length }
     return range
   end
 
@@ -63,6 +63,7 @@ class Medium < ApplicationRecord
         range = self.query_lyrics(lyrics, initials)
         # must insert error handling if no match found
         range[:lyrics] = lyrics
+        range[:title] = medium.name
         return range
       end
     end
