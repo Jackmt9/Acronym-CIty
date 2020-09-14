@@ -40,14 +40,11 @@ class Medium < ApplicationRecord
   def self.query_lyrics(lyrics_array, initials)
     i = 0
     j = 0
-    # money_phrase = ""
     while i < initials.length && j < lyrics_array.length
       if lyrics_array[j][0].downcase == initials[i].downcase
         i += 1
         j += 1
-        # money_phrase += lyrics_array[j] + " "
       else
-        # money_phrase = ""
         i = 0
         j += 1
       end
@@ -56,7 +53,7 @@ class Medium < ApplicationRecord
     if i == 0
       return 0
     end
-    #we need to have a way to return an empty string if it loops through and finds nothing
+
     money_index = j - initials.length
     range = { index_at: money_index, end_of_phrase: money_index + initials.length }
 
@@ -80,15 +77,11 @@ class Medium < ApplicationRecord
         range = self.query_lyrics(lyrics, initials)
         if range != 0
           sandwich_array = self.split_the_lyrics(range, lyrics)
-          # must insert error handling if no match found
-          # range[:lyrics] = lyrics
-          # range[:title] = medium.name
           return {lyrics_array: sandwich_array,
                   song_title: medium.name,
                   artist: medium.author}
         end
       end
     end
-    # print phrase_return
   end
 end
