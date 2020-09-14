@@ -52,6 +52,10 @@ class Medium < ApplicationRecord
         j += 1
       end
     end
+
+    if i == 0
+      return 0
+    end
     #we need to have a way to return an empty string if it loops through and finds nothing
     money_index = j - initials.length
     range = { index_at: money_index, end_of_phrase: money_index + initials.length }
@@ -60,6 +64,7 @@ class Medium < ApplicationRecord
   end
 
   def self.get_songs(initials)
+
     Medium.all.each do |medium|
       if medium.url.include?('genius.com') && (medium.id != 38) &&
            (medium.id != 49) && (medium.id != 72) && (medium.id != 167) &&
@@ -73,13 +78,15 @@ class Medium < ApplicationRecord
         verse = html.at('.lyrics')
         lyrics = verse.children.text.split(' ')
         range = self.query_lyrics(lyrics, initials)
-        sandwich_array = self.split_the_lyrics(range, lyrics)
-        # must insert error handling if no match found
-        # range[:lyrics] = lyrics
-        # range[:title] = medium.name
-        return {lyrics_array: sandwich_array,
-                song_title: medium.name,
-                artist: medium.author}
+        if range != 0
+          sandwich_array = self.split_the_lyrics(range, lyrics)
+          # must insert error handling if no match found
+          # range[:lyrics] = lyrics
+          # range[:title] = medium.name
+          return {lyrics_array: sandwich_array,
+                  song_title: medium.name,
+                  artist: medium.author}
+        end
       end
     end
     # print phrase_return
